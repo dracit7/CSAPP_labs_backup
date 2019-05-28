@@ -255,7 +255,7 @@ int mul2OK(int x) {
   int mask;
 
   mask = 1 << 31;
-  return !((mask & x) ^ (mask & (x<<1)));
+  return (~((mask & x) ^ (mask & (x<<1)))) & 0x1;
 
 }
 /*
