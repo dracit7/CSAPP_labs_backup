@@ -34,4 +34,44 @@ void correctTrans(int M, int N, int A[N][M], int B[M][N]);
 void registerTransFunction(
     void (*trans)(int M,int N,int[N][M],int[M][N]), char* desc);
 
+/*
+ * Structures to simulate a cache.
+ */
+
+typedef struct {
+
+  // Runtime information
+  int hits;
+  int misses;
+  int evicts;
+
+  // Size information
+  int nsets;
+  int nlines;
+  int set_bitnum;
+  int tag_bitnum;
+  int block_bitnum;
+
+} cache_metadata;
+
+typedef struct __line {
+  char valid;
+  int age;
+  unsigned long long tag;
+  char* block;
+} cache_line;
+
+typedef struct {
+  cache_line* lines;
+} cache_set;
+
+typedef struct {
+  cache_set* sets;
+  cache_metadata metadata;
+} cache;
+
+#define MISSED -1
+
+#define MACHINE_BITS 64
+
 #endif /* CACHELAB_TOOLS_H */
